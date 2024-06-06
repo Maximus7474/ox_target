@@ -11,7 +11,7 @@ function onClick() {
   setTimeout(() => (this.style.pointerEvents = "auto"), 100);
 }
 
-export function createOptions(type, data, id, zoneId) {
+export function createOptions(position, type, data, id, zoneId) {
   if (data.hide) return;
 
   const option = document.createElement("div");
@@ -24,6 +24,9 @@ export function createOptions(type, data, id, zoneId) {
   option.targetType = type;
   option.targetId = id;
   option.zoneId = zoneId;
+
+  optionsWrapper.style.top = position.top;
+  optionsWrapper.style.left = position.left;
 
   option.addEventListener("click", onClick);
   optionsWrapper.appendChild(option);

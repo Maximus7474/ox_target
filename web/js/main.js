@@ -20,10 +20,15 @@ window.addEventListener("message", (event) => {
     case "setTarget": {
       eye.classList.add("eye-hover");
 
+      const position = {
+        top: `${event.data.position.y}px`,
+        left: `${event.data.position.x}px`,
+      }
+
       if (event.data.options) {
         for (const type in event.data.options) {
           event.data.options[type].forEach((data, id) => {
-            createOptions(type, data, id + 1);
+            createOptions(position, type, data, id + 1);
           });
         }
       }
@@ -31,7 +36,7 @@ window.addEventListener("message", (event) => {
       if (event.data.zones) {
         for (let i = 0; i < event.data.zones.length; i++) {
           event.data.zones[i].forEach((data, id) => {
-            createOptions("zones", data, id + 1, i + 1);
+            createOptions(position, "zones", data, id + 1, i + 1);
           });
         }
       }
