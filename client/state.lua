@@ -25,7 +25,7 @@ end
 
 ---@param value boolean
 function state.setNuiFocus(value, cursor)
-    if value then SetCursorLocation(0.5, 0.5) end
+    -- if value then SetCursorLocation(0.5, 0.5) end
 
     nuiFocus = value
     SetNuiFocus(value, cursor or false)
