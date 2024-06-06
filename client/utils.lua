@@ -14,9 +14,6 @@ local Rx, Ry = GetActiveScreenResolution()
 ---@return number materialHash
 function utils.raycastFromCamera(flag)
     local x, y = GetNuiCursorPosition()
-    lib.showTextUI(
-        string.format("x: %.2f  \ny: %.2f", (x/Rx), (y/Ry))
-    )
     local coords, normal = GetWorldCoordFromScreenCoord((x/Rx), (y/Ry))
     local destination = coords + normal * 10
     -- local handle = StartShapeTestLosProbe(coords.x, coords.y, coords.z, destination.x, destination.y, destination.z,
