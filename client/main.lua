@@ -316,10 +316,12 @@ local function startTargeting()
                         })
                 end
 
+                local x, y = GetNuiCursorPosition()
                 SendNuiMessage(json.encode({
                     event = 'setTarget',
                     options = options,
                     zones = zones,
+                    position = {x = x, y = y}
                 }, { sort_keys = true }))
             end
 
