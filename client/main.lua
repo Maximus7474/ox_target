@@ -129,6 +129,7 @@ local function startTargeting()
 
     state.setActive(true)
     state.setNuiFocus(true, true)
+    SetCursorLocation(0.5, 0.5)
 
     local flag = 511
     local hit, entityHit, endCoords, distance, lastEntity, entityType, entityModel, hasTarget, zonesChanged
