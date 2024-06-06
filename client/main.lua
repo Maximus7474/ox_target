@@ -128,6 +128,7 @@ local function startTargeting()
     if state.isDisabled() or state.isActive() or IsNuiFocused() or IsPauseMenuActive() then return end
 
     state.setActive(true)
+    state.setNuiFocus(true, true)
 
     local flag = 511
     local hit, entityHit, endCoords, distance, lastEntity, entityType, entityModel, hasTarget, zonesChanged
@@ -158,11 +159,11 @@ local function startTargeting()
                 DisableControlAction(0, 1, true)
                 DisableControlAction(0, 2, true)
 
-                if not hasTarget or options and IsDisabledControlJustPressed(0, 25) then
-                    state.setNuiFocus(false, false)
-                end
+                -- if not hasTarget or options and IsDisabledControlJustPressed(0, 25) then
+                --     state.setNuiFocus(false, false)
+                -- end
             elseif hasTarget and IsDisabledControlJustPressed(0, mouseButton) then
-                state.setNuiFocus(true, true)
+                -- state.setNuiFocus(true, true)
             end
 
             Wait(0)
@@ -178,7 +179,8 @@ local function startTargeting()
         end
 
         local playerCoords = GetEntityCoords(cache.ped)
-        hit, entityHit, endCoords = lib.raycast.fromCamera(flag, 4, 20)
+        -- hit, entityHit, endCoords = lib.raycast.fromCamera(flag, 4, 20)
+        hit, entityHit, endCoords, _, _ = utils.raycastFromCamera(flag)
         distance = #(playerCoords - endCoords)
 
         if entityHit ~= 0 and entityHit ~= lastEntity then
@@ -188,7 +190,8 @@ local function startTargeting()
 
         if entityType == 0 then
             local _flag = flag == 511 and 26 or 511
-            local _hit, _entityHit, _endCoords = lib.raycast.fromCamera(_flag, 4, 20)
+            -- local _hit, _entityHit, _endCoords = lib.raycast.fromCamera(_flag, 4, 20)
+            local _hit, _entityHit, _endCoords, _, _ = utils.raycastFromCamera(_flag)
             local _distance = #(playerCoords - _endCoords)
 
             if _distance < distance then
@@ -334,6 +337,8 @@ local function startTargeting()
         Wait(hit and 50 or 100)
     end
 
+    lib.hideTextUI()
+
     if lastEntity and debug then
         SetEntityDrawOutline(lastEntity, false)
     end
@@ -431,7 +436,7 @@ RegisterNUICallback('select', function(data, cb)
 
             options:wipe()
         else
-            state.setNuiFocus(false)
+            -- state.setNuiFocus(false)
         end
 
         if option.onSelect then
